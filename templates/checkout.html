@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout | Trendy Fashion Store{% endblock %}
+
+{% block body %}
+<div class="row">
+	<div class="col-lg-8">
+		<h3 class="bold">
+			<i class="glyphicon glyphicon-pencil"></i> Informatii Livrare
+		</h3>
+
+		<div class="panel panel-primary">
+			<form action="{{ url_for('checkout') }}" method="POST">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="bold">Informatii Personale</h4>
+					</div>
+					{{ form.csrf_token }}
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Nume</label>
+							{{ form.first_name(class="form-control", placeholder= "Numele") }}
+						</div>
+						<div class="form-group">
+							<label>Prenume</label>
+							{{ form.last_name(class="form-control", placeholder="Prenume") }}
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Telefon</label>
+							{{ form.phone_number(class="form-control", placeholder = "Telefon") }}
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							{{ form.email(class="form-control", placeholder="Email") }}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="bold">Adresa</h4>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Adresa</label>
+							{{ form.adress(class="form-control", placeholder="Adresa") }}
+						</div>
+						<div class="form-group">
+							<label>Oras</label>
+							{{ form.city(class="form-control", placeholder="Oras") }}
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Judet</label>
+							{{ form.state(class="form-control") }}
+						</div>
+						<div class="form-group">
+							<label>Tara</label>
+							{{ form.country(class="form-control") }}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="bold">Metoda Livrare</h4>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Metoda Livrare</label>
+							<select name="shipping_method" id="shipping_method" class="form-control">
+								<option value="">Livrare urmatoarea zi (15 Lei)</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="bold">Plata</h4>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label>Optiuni Plata</label>
+							{{ form.payment_type(class="form-control") }}
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="">
+									Sunt de acord cu termenii si conditiile.
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel-footer">
+				<button type="submit" class="btn btn-primary btn-sm">
+					Comanda
+				</button>
+			</div>
+		</form>
+		</div>
+	</div>
+
+	<div class="col-lg-4">
+		<h3 class="bold">
+			<i class="glyphicon glyphicon-th-list"></i> Detalii Cos
+		</h3>
+
+		<div class="panel panel-primary">
+			<div class="panel-body">
+				Valoare Cos Curent
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item">
+					<p>
+						{{ quantity_total }} Produse <strong class="pull-right">{{ grand_total / 100 }}  Lei</strong>
+					</p>
+					<p>
+						Livrare urmatoare zi <strong class="pull-right">10 Lei</strong>
+					</p>
+				</li>
+				<li class="list-group-item">
+					<p>Total Fara Taxe <strong class="pull-right">{{ (grand_total_plus_shipping / 100) + 10 }} Lei</strong></p>
+					<p>Taxe <strong class="pull-right">{{ taxRound / 100 }} Lei</strong></p>
+					<p>Total cu Taxe <strong class="pull-right">{{ (grand_full / 100) + 10 }} Lei</strong></p>
+				</li>
+			</ul>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Beneficii</h3>
+			</div>
+			<div class="panel-body">
+				Beneficiile cand va faceti cumparaturile la noi:
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item">Protectia Cumparatorului</li>
+				<li class="list-group-item">Livrare Urmatoare Zi</li>
+				<li class="list-group-item">Flexibilitatea Optiunilor de Plata</li>
+				<li class="list-group-item">Retur in 7 zile</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}
